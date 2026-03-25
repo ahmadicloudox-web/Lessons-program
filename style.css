@@ -1,227 +1,165 @@
-/* استيراد الخط */
+/* --- استيراد الخط وتجهيز المتغيرات --- */
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
 
 :root {
-    --bg-color: #f0f2f5;
+    --bg-color: #f4f5f7;
     --container-bg: #ffffff;
-    --text-main: #333333;
-    --border-color: #f0f0f0; /* لون الفواصل */
-    --header-bg: #333333;
-    --shadow: 0 10px 25px rgba(0,0,0,0.06);
+    --main-black: #333333; /* اللون الأسود للأزرار والهيدر */
+    --text-gray: #888888;
+    --border-light: #eeeeee;
+    --shadow-soft: 0 10px 40px rgba(0,0,0,0.03);
 }
 
-body { 
-    font-family: 'Cairo', sans-serif; 
-    background-color: var(--bg-color); 
-    margin: 0; padding: 40px 20px; 
-    direction: rtl; 
-}
-
-.container { 
-    max-width: 900px; margin: auto; 
-    background: var(--container-bg); 
-    padding: 30px; 
-    border-radius: 30px; /* زوايا دائرية جداً للملف الأساسي */
-    box-shadow: var(--shadow); 
-    text-align: center; 
-}
-
-.school-logo { width: 130px; margin-bottom: 15px; }
-
-/* تصميم الجدول الدائري مع الفواصل */
-table { 
-    width: 100%; border-collapse: separate; border-spacing: 0; 
-    margin-top: 25px; border: 1px solid var(--border-color);
-    border-radius: 20px; /* زوايا الجدول */
-    overflow: hidden; 
-}
-
-th, td { 
-    padding: 15px 10px; 
-    text-align: center; 
-    border-bottom: 1px solid var(--border-color);
-    /* إضافة الفاصل العمودي */
-    border-left: 1px solid var(--border-color); 
-}
-
-/* إزالة الفاصل من آخر عمود جهة اليسار (وهو الأول في الترتيب البرمجي) */
-th:last-child, td:last-child { border-left: none; }
-
-.header-row { background-color: var(--header-bg); color: white; }
-.header-row th { font-weight: 600; border-left: 1px solid #444; }
-
-.day-column { 
-    background-color: #f8f9fa; 
-    font-weight: bold; 
-    color: var(--text-main); 
-    width: 110px;
-}
-
-/* تصميم الحصص كأزرار دائرية (Pills) */
-.subject-card { 
-    display: block; 
-    padding: 10px 5px; 
-    border-radius: 25px; /* شكل بيضاوي دائري تماماً */
-    color: white; 
-    text-decoration: none; 
-    font-weight: 600; 
-    font-size: 0.9em;
-    transition: all 0.3s ease;
-}
-
-.subject-card:hover { 
-    transform: translateY(-3px); 
-    box-shadow: 0 5px 12px rgba(0,0,0,0.15); 
-    opacity: 0.9;
-}
-
-.empty-cell { color: #bbb; font-style: italic; font-size: 0.8em; }
-
-/* زر العودة للرئيسية */
-.back-btn {
-    display: inline-block; margin-top: 20px;
-    text-decoration: none; color: #666; font-size: 0.9em;
-}
-/* تنسيق توقيع المصمم الباهت في الزاوية اليسرى السفلية */
-.designer-credit {
-    position: absolute;   /* تحديد الموقع بشكل مطلق بالنسبة للحاوية */
-    bottom: 15px;         /* مسافة صغيرة من الأسفل */
-    left: 20px;           /* مسافة من اليسار */
-    font-size: 10px;      /* خط صغير جداً وخفي */
-    color: #535151;       /* لون رمادي باهت جداً يكاد يختفي */
-    font-style: italic;   /* خط مائل للمسة جمالية هادئة */
-    z-index: 10;          /* التأكد من أنه يظهر فوق أي ظل أو خلفية */
-    pointer-events: none; /* جعل النص غير قابل للنقر لكي لا يزعج الطالب */
-}
-
-/* تعديل بسيط ضروري للحاوية container للتأكد من موقع التوقيع */
-.container {
-    position: relative;   /* ضروري لعمل الـ position: absolute بداخلها */
-    /* ... باقي خصائص التنسيق السابقة للحاوية ... */
-}
-/* تصميم زر العودة العصري */
-.back-home-wrapper {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px transition solid #f5f5f5;
-}
-
-.back-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
-    background-color: #ffffff;
-    color: #555;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.95rem;
-    border-radius: 50px; /* دائري تماماً */
-    border: 1.5px solid #eee;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-}
-
-.back-btn:hover {
-    background-color: #333; /* يتحول للأسود عند التمرير ليناسب الهيدر */
-    color: #fff;
-    border-color: #333;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-}
-
-.back-btn svg {
-    width: 18px;
-    height: 18px;
-    transition: transform 0.3s ease;
-}
-
-.back-btn:hover svg {
-    transform: translateX(5px); /* حركة خفيفة للسهم عند التمرير */
-}
-/* منع تحديد النصوص أو نسخها في الجدول */
-table {
-    user-select: none;
-    -webkit-user-select: none;
-}
-
-/* منع سحب شعار المدرسة */
-.school-logo {
-    pointer-events: none;
-}
-/* منع تحديد النصوص لضمان عدم نسخ المحتوى */
+/* --- تنسيقات الجسم والحماية --- */
 body {
-    user-select: none;
-    -webkit-user-select: none;
-}
-
-/* حماية توقيعك من الحذف السهل عبر الفحص */
-.credit-corner, .designer-credit {
-    pointer-events: none; /* يمنع النقر عليه أو تحديثه */
-    z-index: 9999;
-}
-/* تنسيقات الصفحة الرئيسية المتقدمة */
-.home-page {
-    background-color: #f8f9fa;
     font-family: 'Cairo', sans-serif;
+    background-color: var(--bg-color);
+    margin: 0;
+    padding: 40px 20px;
+    direction: rtl;
+    user-select: none; /* منع النسخ */
+    -webkit-user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
-.main-gateway {
-    max-width: 900px;
-    margin: 50px auto;
-    background: white;
-    padding: 40px;
-    border-radius: 30px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+/* --- الحاوية الرئيسية (البوابة والجدول) --- */
+.container {
+    max-width: 950px;
+    width: 100%;
+    margin: auto;
+    background: var(--container-bg);
+    padding: 50px 40px;
+    border-radius: 30px; /* زوايا دائرية فخمة */
+    box-shadow: var(--shadow-soft);
     text-align: center;
+    position: relative; /* ضروري لموقع التوقيع */
 }
 
+/* --- تنسيقات العناوين --- */
 .main-title {
-    font-size: 2rem;
+    font-size: 1.8rem;
+    font-weight: 700;
     color: #222;
     margin-bottom: 10px;
 }
 
 .sub-title {
-    color: #666;
+    font-size: 0.95rem;
+    color: var(--text-gray);
     margin-bottom: 40px;
 }
 
-/* توزيع الأزرار بشكل شبكة Grid */
+/* --- شبكة أزرار الصفوف (تصميم بيضاوي أسود) --- */
 .classes-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 15px;
+    margin-bottom: 40px;
 }
 
 .class-card {
-    background: #ffffff;
-    border: 1px solid #eee;
-    padding: 25px 15px;
-    border-radius: 20px;
+    background-color: var(--main-black);
+    color: #ffffff;
+    padding: 15px 10px;
+    border-radius: 50px; /* شكل بيضاوي كامل */
     text-decoration: none;
-    color: #333;
-    font-weight: bold;
-    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 1px solid var(--main-black);
 }
 
 .class-card:hover {
-    background: #333;
+    background-color: #555;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* --- تنسيقات الجدول داخل الصفوف --- */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 25px;
+    border: 1px solid var(--border-light);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-light);
+    border-left: 1px solid var(--border-light);
+}
+
+th:last-child, td:last-child { border-left: none; }
+
+.header-row { background-color: var(--main-black); color: white; }
+.header-row th { font-weight: 600; border-left: 1px solid #444; }
+
+/* تصميم الحصص كأزرار بيضاوية ملونة (داخل الجدول) */
+.subject-card {
+    display: block;
+    padding: 10px;
+    border-radius: 50px; /* بيضاوي تماماً */
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85em;
+    transition: all 0.3s ease;
+}
+
+/* --- زر العودة العصري --- */
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 25px;
+    background-color: #fff;
+    color: #555;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 50px;
+    border: 1.5px solid #eee;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+.back-btn:hover {
+    background-color: var(--main-black);
     color: #fff;
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    border-color: var(--main-black);
 }
 
-.class-card.special {
-    border: 2px solid #333;
+/* --- شعار المدرسة --- */
+.school-logo {
+    width: 120px;
+    margin-bottom: 20px;
+    pointer-events: none;
 }
 
-.designer-credit-home {
-    margin-top: 50px;
-    font-size: 11px;
-    color: #ccc;
-    text-align: left; /* لتكون في الزاوية اليسرى */
+/* --- توقيع المصمم (حماية وجمالية) --- */
+.designer-credit {
+    position: absolute;
+    bottom: 15px;
+    left: 25px;
+    font-size: 10px;
+    color: #cccccc;
+    font-style: italic;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+/* --- التجاوب مع الهواتف --- */
+@media (max-width: 600px) {
+    .classes-grid { grid-template-columns: repeat(2, 1fr); }
+    .container { padding: 30px 20px; }
+    .main-title { font-size: 1.4rem; }
 }
