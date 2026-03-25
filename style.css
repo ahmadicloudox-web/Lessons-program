@@ -146,15 +146,26 @@ th:last-child, td:last-child { border-left: none; }
 }
 
 /* --- توقيع المصمم (حماية وجمالية) --- */
+/* --- تنسيق توقيع المصمم (باهت، مائل، وفخم) --- */
 .designer-credit {
-    position: absolute;
-    bottom: 15px;
-    left: 25px;
-    font-size: 10px;
-    color: #cccccc;
-    font-style: italic;
-    z-index: 9999;
-    pointer-events: none;
+    position: absolute;   /* لتثبيته في زاوية معينة داخل الحاوية */
+    bottom: 20px;         /* مسافة من الأسفل */
+    left: 25px;           /* مسافة من اليسار ليكون في الركن */
+    
+    font-family: 'Cairo', sans-serif; /* الخط المستخدم */
+    font-size: 13px;      /* حجم خط صغير ليتناسب مع الصورة */
+    font-weight: 600;     /* سمك الخط (شبه سميك) */
+    font-style: italic;   /* لجعل الخط مائلاً */
+    text-transform: capitalize; /* لجعل أول حرف من كل كلمة كبيراً */
+    
+    color: rgba(180, 190, 205, 0.7); /* لون رمادي مزرق باهت مع شفافية */
+    
+    /* تأثير ظل النص السحري ليطابق الصورة */
+    text-shadow: 0 0 4px rgba(220, 220, 220, 0.2); 
+    
+    z-index: 1000;        /* للتأكد من أنه يظهر فوق أي محتوى آخر */
+    pointer-events: none; /* جعله غير قابل للنقر لضمان الحماية */
+    transition: all 0.5s ease; /* انيميشن ناعم إذا قررت إضافة أي تأثير حركي مستقبلاً */
 }
 
 /* --- التجاوب مع الهواتف --- */
