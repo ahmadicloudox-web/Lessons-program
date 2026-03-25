@@ -1,0 +1,162 @@
+/* استيراد الخط */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
+
+:root {
+    --bg-color: #f0f2f5;
+    --container-bg: #ffffff;
+    --text-main: #333333;
+    --border-color: #f0f0f0; /* لون الفواصل */
+    --header-bg: #333333;
+    --shadow: 0 10px 25px rgba(0,0,0,0.06);
+}
+
+body { 
+    font-family: 'Cairo', sans-serif; 
+    background-color: var(--bg-color); 
+    margin: 0; padding: 40px 20px; 
+    direction: rtl; 
+}
+
+.container { 
+    max-width: 900px; margin: auto; 
+    background: var(--container-bg); 
+    padding: 30px; 
+    border-radius: 30px; /* زوايا دائرية جداً للملف الأساسي */
+    box-shadow: var(--shadow); 
+    text-align: center; 
+}
+
+.school-logo { width: 130px; margin-bottom: 15px; }
+
+/* تصميم الجدول الدائري مع الفواصل */
+table { 
+    width: 100%; border-collapse: separate; border-spacing: 0; 
+    margin-top: 25px; border: 1px solid var(--border-color);
+    border-radius: 20px; /* زوايا الجدول */
+    overflow: hidden; 
+}
+
+th, td { 
+    padding: 15px 10px; 
+    text-align: center; 
+    border-bottom: 1px solid var(--border-color);
+    /* إضافة الفاصل العمودي */
+    border-left: 1px solid var(--border-color); 
+}
+
+/* إزالة الفاصل من آخر عمود جهة اليسار (وهو الأول في الترتيب البرمجي) */
+th:last-child, td:last-child { border-left: none; }
+
+.header-row { background-color: var(--header-bg); color: white; }
+.header-row th { font-weight: 600; border-left: 1px solid #444; }
+
+.day-column { 
+    background-color: #f8f9fa; 
+    font-weight: bold; 
+    color: var(--text-main); 
+    width: 110px;
+}
+
+/* تصميم الحصص كأزرار دائرية (Pills) */
+.subject-card { 
+    display: block; 
+    padding: 10px 5px; 
+    border-radius: 25px; /* شكل بيضاوي دائري تماماً */
+    color: white; 
+    text-decoration: none; 
+    font-weight: 600; 
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+}
+
+.subject-card:hover { 
+    transform: translateY(-3px); 
+    box-shadow: 0 5px 12px rgba(0,0,0,0.15); 
+    opacity: 0.9;
+}
+
+.empty-cell { color: #bbb; font-style: italic; font-size: 0.8em; }
+
+/* زر العودة للرئيسية */
+.back-btn {
+    display: inline-block; margin-top: 20px;
+    text-decoration: none; color: #666; font-size: 0.9em;
+}
+/* تنسيق توقيع المصمم الباهت في الزاوية اليسرى السفلية */
+.designer-credit {
+    position: absolute;   /* تحديد الموقع بشكل مطلق بالنسبة للحاوية */
+    bottom: 15px;         /* مسافة صغيرة من الأسفل */
+    left: 20px;           /* مسافة من اليسار */
+    font-size: 10px;      /* خط صغير جداً وخفي */
+    color: #535151;       /* لون رمادي باهت جداً يكاد يختفي */
+    font-style: italic;   /* خط مائل للمسة جمالية هادئة */
+    z-index: 10;          /* التأكد من أنه يظهر فوق أي ظل أو خلفية */
+    pointer-events: none; /* جعل النص غير قابل للنقر لكي لا يزعج الطالب */
+}
+
+/* تعديل بسيط ضروري للحاوية container للتأكد من موقع التوقيع */
+.container {
+    position: relative;   /* ضروري لعمل الـ position: absolute بداخلها */
+    /* ... باقي خصائص التنسيق السابقة للحاوية ... */
+}
+/* تصميم زر العودة العصري */
+.back-home-wrapper {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px transition solid #f5f5f5;
+}
+
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background-color: #ffffff;
+    color: #555;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: 50px; /* دائري تماماً */
+    border: 1.5px solid #eee;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.back-btn:hover {
+    background-color: #333; /* يتحول للأسود عند التمرير ليناسب الهيدر */
+    color: #fff;
+    border-color: #333;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.back-btn svg {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.3s ease;
+}
+
+.back-btn:hover svg {
+    transform: translateX(5px); /* حركة خفيفة للسهم عند التمرير */
+}
+/* منع تحديد النصوص أو نسخها في الجدول */
+table {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* منع سحب شعار المدرسة */
+.school-logo {
+    pointer-events: none;
+}
+/* منع تحديد النصوص لضمان عدم نسخ المحتوى */
+body {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* حماية توقيعك من الحذف السهل عبر الفحص */
+.credit-corner, .designer-credit {
+    pointer-events: none; /* يمنع النقر عليه أو تحديثه */
+    z-index: 9999;
+}
