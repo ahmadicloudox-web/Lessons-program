@@ -174,3 +174,35 @@ th:last-child, td:last-child { border-left: none; }
     .container { padding: 30px 20px; }
     .main-title { font-size: 1.4rem; }
 }
+/* تحسينات للعرض على الهواتف المحمولة */
+@media screen and (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 10px;
+        margin: 10px auto;
+    }
+
+    /* جعل الجدول قابلاً للتمرير الجانبي دون تخريب التصميم */
+    .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+        min-width: 600px; /* يضمن عدم تداخل النصوص داخل الخلايا */
+    }
+
+    .subject-card {
+        padding: 8px 4px;
+        font-size: 12px;
+        min-width: 70px;
+    }
+
+    .main-title {
+        font-size: 18px;
+    }
+
+    .school-logo {
+        width: 80px;
+    }
+}
