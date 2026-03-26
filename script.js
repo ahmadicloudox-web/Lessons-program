@@ -45,33 +45,37 @@ async function loadTable() {
         if(!tbody) return;
         tbody.innerHTML = ""; 
 
-        schedData.table.rows.forEach((row, index) => {
-            // التعديل: إزالة شرط (index === 0) للسماح بقراءة الصف الأول فوراً (يوم الأحد)
-            
-            // تخطي الصفوف الفارغة تماماً
-            if (!row.c || !row.c[0] || !row.c[0].v) return;
+       schedData.table.rows.forEach((row) => {
+    if (!row.c) return;
 
-            let tr = `<tr><td class="day-column">${row.c[0].v}</td>`; 
-            
-            // التكرار على كافة الحصص (من العمود الثاني B فصاعداً)
-            for (let i = 1; i < row.c.length; i++) {
-                const cell = row.c[i];
-                const cellVal = (cell && cell.v) ? cell.v : "-|#";
-                
-                let [name, link] = cellVal.split('|');
-                if (!link) link = "#";
+    // الحصول على كافة الخلايا الموجودة في الصف
+    const cells = row.c;
+    
+    // 1. اليوم الآن موجود في آخر خلية بجهة اليمين في الشيت
+    const dayName = cells[cells.length - 1] ? cells[cells.length - 1].v : "";
+    if (!dayName) return; // تخطي الصفوف الفارغة
 
-                // التحقق إذا كانت الحصة فارغة أو عطلة
-                if (name === "-" || name.trim() === "" || name.includes("عطلة") || name === "لا يوجد") {
-                    tr += `<td class="empty-cell">لا يوجد</td>`;
-                } else {
-                    const color = generateColor(name);
-                    tr += `<td><a href="${link}" target="_blank" class="subject-card" style="background:${color}">${name}</a></td>`;
-                }
-            }
-            tr += `</tr>`;
-            tbody.innerHTML += tr;
-        });
+    let tr = `<tr><td class="day-column">${dayName}</td>`; 
+    
+    // 2. قراءة الحصص بترتيب عكسي (من اليمين إلى اليسار)
+    // نبدأ من قبل الأخير (آخر حصة) وصولاً إلى العمود الأول في الشيت
+    for (let i = cells.length - 2; i >= 0; i--) {
+        const cell = cells[i];
+        const cellVal = (cell && cell.v) ? cell.v : "-|#";
+        
+        let [name, link] = cellVal.split('|');
+        if (!link) link = "#";
+
+        if (name === "-" || name.trim() === "" || name.includes("عطلة") || name === "لا يوجد") {
+            tr += `<td class="empty-cell">لا يوجد</td>`;
+        } else {
+            const color = generateColor(name);
+            tr += `<td><a href="${link}" target="_blank" class="subject-card" style="background:${color}">${name}</a></td>`;
+        }
+    }
+    tr += `</tr>`;
+    tbody.innerHTML += tr;
+});
 
     } catch (err) { 
         console.error("حدث خطأ أثناء تحميل البيانات:", err); 
