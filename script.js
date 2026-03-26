@@ -95,4 +95,4 @@ function generateColor(str) {
 console.log("%c Designed by Eng Ahmad Hussein ", "color: white; background: #333; font-size: 20px; font-weight: bold; padding: 10px; border-radius: 5px;");
 
 window.onload = loadTable;
-عدله
+
