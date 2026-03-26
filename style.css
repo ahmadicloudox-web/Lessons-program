@@ -4,10 +4,11 @@
 :root {
     --bg-color: #f4f5f7;
     --container-bg: #ffffff;
-    --main-black: #333333; /* اللون الأسود للأزرار والهيدر */
+    --main-black: #333333; /* اللون الأساسي للهيدر والأزرار */
     --text-gray: #888888;
     --border-light: #eeeeee;
     --shadow-soft: 0 10px 40px rgba(0,0,0,0.03);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* --- تنسيقات الجسم والحماية --- */
@@ -15,9 +16,9 @@ body {
     font-family: 'Cairo', sans-serif;
     background-color: var(--bg-color);
     margin: 0;
-    padding: 40px 20px;
+    padding: 0; /* تم التعديل ليناسب الهواتف */
     direction: rtl;
-    user-select: none; /* منع النسخ */
+    user-select: none; /* منع النسخ لحماية المحتوى */
     -webkit-user-select: none;
     display: flex;
     justify-content: center;
@@ -25,17 +26,26 @@ body {
     min-height: 100vh;
 }
 
-/* --- الحاوية الرئيسية (البوابة والجدول) --- */
+/* --- الحاوية الرئيسية --- */
 .container {
     max-width: 950px;
-    width: 100%;
-    margin: auto;
+    width: 90%; /* تجاوب أفضل */
+    margin: 20px auto;
     background: var(--container-bg);
-    padding: 50px 40px;
-    border-radius: 30px; /* زوايا دائرية فخمة */
+    padding: 40px;
+    border-radius: 30px; 
     box-shadow: var(--shadow-soft);
     text-align: center;
-    position: relative; /* ضروري لموقع التوقيع */
+    position: relative; 
+    overflow: hidden; /* لمنع خروج العناصر عن الحواف */
+}
+
+/* --- شعار المدرسة --- */
+.school-logo {
+    width: 120px;
+    height: auto;
+    margin-bottom: 15px;
+    pointer-events: none;
 }
 
 /* --- تنسيقات العناوين --- */
@@ -43,32 +53,32 @@ body {
     font-size: 1.8rem;
     font-weight: 700;
     color: #222;
-    margin-bottom: 10px;
+    margin: 0 0 10px 0;
 }
 
 .sub-title {
     font-size: 0.95rem;
     color: var(--text-gray);
-    margin-bottom: 40px;
+    margin-bottom: 35px;
 }
 
-/* --- شبكة أزرار الصفوف (تصميم بيضاوي أسود) --- */
+/* --- شبكة أزرار الصفوف (الرئيسية) --- */
 .classes-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 15px;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 .class-card {
     background-color: var(--main-black);
     color: #ffffff;
-    padding: 15px 10px;
-    border-radius: 50px; /* شكل بيضاوي كامل */
+    padding: 14px 10px;
+    border-radius: 50px;
     text-decoration: none;
     font-weight: 600;
     font-size: 0.95rem;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: var(--transition);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -81,19 +91,24 @@ body {
     box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
-/* --- تنسيقات الجدول داخل الصفوف --- */
+/* --- حاوية الجدول المتجاوبة (حل مشكلة التلفون) --- */
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* يسمح بالتمرير لليمين واليسار */
+    -webkit-overflow-scrolling: touch; /* تمرير سلس على الآيفون */
+    margin-top: 20px;
+    border-radius: 15px;
+    border: 1px solid var(--border-light);
+}
+
 table {
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    margin-top: 25px;
-    border: 1px solid var(--border-light);
-    border-radius: 20px;
-    overflow: hidden;
+    min-width: 600px; /* يمنع انضغاط الجدول على الشاشات الصغيرة */
+    border-collapse: collapse;
 }
 
 th, td {
-    padding: 15px;
+    padding: 12px 15px;
     text-align: center;
     border-bottom: 1px solid var(--border-light);
     border-left: 1px solid var(--border-light);
@@ -101,108 +116,92 @@ th, td {
 
 th:last-child, td:last-child { border-left: none; }
 
-.header-row { background-color: var(--main-black); color: white; }
-.header-row th { font-weight: 600; border-left: 1px solid #444; }
+.header-row { 
+    background-color: var(--main-black); 
+    color: white; 
+}
 
-/* تصميم الحصص كأزرار بيضاوية ملونة (داخل الجدول) */
+.header-row th { 
+    font-weight: 600; 
+    border-left: 1px solid #444; 
+}
+
+/* --- تصميم الحصص (البطاقات الملونة) --- */
 .subject-card {
-    display: block;
-    padding: 10px;
-    border-radius: 50px; /* بيضاوي تماماً */
+    display: inline-block;
+    padding: 8px 15px;
+    border-radius: 50px;
     color: white;
     text-decoration: none;
     font-weight: 600;
-    font-size: 0.85em;
-    transition: all 0.3s ease;
+    font-size: 0.85rem;
+    transition: var(--transition);
+    min-width: 80px;
 }
 
-/* --- زر العودة العصري --- */
+.subject-card:hover {
+    filter: brightness(1.1);
+    transform: scale(1.03);
+}
+
+/* --- زر العودة --- */
+.back-home-wrapper { margin-top: 30px; }
+
 .back-btn {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 12px 25px;
+    padding: 10px 20px;
     background-color: #fff;
     color: #555;
     text-decoration: none;
     font-weight: 600;
     border-radius: 50px;
     border: 1.5px solid #eee;
-    transition: all 0.3s ease;
-    margin-top: 20px;
+    transition: var(--transition);
 }
 
 .back-btn:hover {
     background-color: var(--main-black);
     color: #fff;
-    border-color: var(--main-black);
 }
 
-/* --- شعار المدرسة --- */
-.school-logo {
-    width: 120px;
-    margin-bottom: 20px;
-    pointer-events: none;
-}
-
-/* --- توقيع المصمم (حماية وجمالية) --- */
-/* --- تنسيق توقيع المصمم (باهت، مائل، وفخم) --- */
+/* --- توقيع المصمم (باهت ومائل في الركن) --- */
 .designer-credit {
-    position: absolute;   /* لتثبيته في زاوية معينة داخل الحاوية */
-    bottom: 20px;         /* مسافة من الأسفل */
-    left: 25px;           /* مسافة من اليسار ليكون في الركن */
-    
-    font-family: 'Cairo', sans-serif; /* الخط المستخدم */
-    font-size: 13px;      /* حجم خط صغير ليتناسب مع الصورة */
-    font-weight: 600;     /* سمك الخط (شبه سميك) */
-    font-style: italic;   /* لجعل الخط مائلاً */
-    text-transform: capitalize; /* لجعل أول حرف من كل كلمة كبيراً */
-    
-    color: rgba(180, 190, 205, 0.7); /* لون رمادي مزرق باهت مع شفافية */
-    
-    /* تأثير ظل النص السحري ليطابق الصورة */
-    text-shadow: 0 0 4px rgba(220, 220, 220, 0.2); 
-    
-    z-index: 1000;        /* للتأكد من أنه يظهر فوق أي محتوى آخر */
-    pointer-events: none; /* جعله غير قابل للنقر لضمان الحماية */
-    transition: all 0.5s ease; /* انيميشن ناعم إذا قررت إضافة أي تأثير حركي مستقبلاً */
+    position: absolute;
+    bottom: 15px;
+    left: 20px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    font-style: italic;
+    color: rgba(180, 190, 205, 0.5); /* شفافية عالية */
+    pointer-events: none;
+    z-index: 10;
 }
 
-/* --- التجاوب مع الهواتف --- */
-@media (max-width: 600px) {
-    .classes-grid { grid-template-columns: repeat(2, 1fr); }
-    .container { padding: 30px 20px; }
+/* --- التجاوب الشامل مع الشاشات الصغيرة --- */
+@media (max-width: 768px) {
+    .container { 
+        width: 95%; 
+        padding: 25px 15px; 
+    }
+    
+    .classes-grid { 
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 10px;
+    }
+    
     .main-title { font-size: 1.4rem; }
-}
-/* تحسينات للعرض على الهواتف المحمولة */
-@media screen and (max-width: 768px) {
-    .container {
-        width: 95%;
-        padding: 10px;
-        margin: 10px auto;
-    }
+    
+    .school-logo { width: 90px; }
 
-    /* جعل الجدول قابلاً للتمرير الجانبي دون تخريب التصميم */
-    .table-container {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    table {
-        min-width: 600px; /* يضمن عدم تداخل النصوص داخل الخلايا */
-    }
-
-    .subject-card {
-        padding: 8px 4px;
-        font-size: 12px;
-        min-width: 70px;
-    }
-
-    .main-title {
-        font-size: 18px;
-    }
-
-    .school-logo {
-        width: 80px;
+    .designer-credit {
+        position: relative; /* يظهر تحت العناصر في التلفون بدلاً من الطفو */
+        bottom: 0;
+        left: 0;
+        margin-top: 20px;
+        text-align: center;
+        display: block;
     }
 }
